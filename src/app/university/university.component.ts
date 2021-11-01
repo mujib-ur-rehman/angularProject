@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Studentslist } from '../studentslist';
-
+import { StudentService } from '../student.service';
 @Component({
   selector: 'app-university',
   templateUrl: './university.component.html',
   styleUrls: ['./university.component.css']
 })
 export class UniversityComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private studentservice: StudentService) {}
 
   profileForm = new FormGroup({
     name: new FormControl(''),
@@ -19,13 +19,16 @@ export class UniversityComponent implements OnInit {
   onclick(): void {
     this.router.navigate(this.navigationDetails);
   }
-
-  data: any = [];
+  data: any;
 
   createStudent() {
-    this.data.push(this.profileForm.value);
-    console.warn(this.data);
+    // this.profileForm.value;
+    this.studentservice.createstudents(this.profileForm.value);
   }
-
-  ngOnInit(): void {}
+  getdata() {
+    this.data = this.studentservice.getdata();
+  }
+  ngOnInit(): void {
+    this.getdata();
+  }
 }

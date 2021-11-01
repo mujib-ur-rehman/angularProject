@@ -10,6 +10,14 @@ export class StudentService {
   constructor() {}
   createstudents(data: any) {
     this.students.push(data);
+    // console.warn(this.students);
+    // console.warn(this.getdata());
+  }
+  getdata() {
+    return this.students;
+  }
+  setdata(data: any[] = []) {
+    this.students.concat(data);
     console.warn(this.students);
   }
 }

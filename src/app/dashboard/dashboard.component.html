@@ -4,3 +4,13 @@
   <li><a href='college'>College</a></li>
   <li><a href='university'>University</a></li>
 </ul>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+  <tr *ngFor="let item of students">
+    <td>{{item.name}}</td>
+    <td>{{item.description}}</td>
+  </tr>
+</table>

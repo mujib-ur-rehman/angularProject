@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { StudentService } from '../student.service';
 // import { AppModule } from '../app.module';
-import { AppComponent } from '../app.component';
+// import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-school',
@@ -11,26 +11,33 @@ import { AppComponent } from '../app.component';
   styleUrls: ['./school.component.css']
 })
 export class SchoolComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private studentservice: StudentService) {}
 
   profileForm = new FormGroup({
     name: new FormControl(''),
     description: new FormControl('')
   });
 
+  data: any[] = [];
+  data2: any[] = [];
+
   navigationDetails: string[] = ['/dashboard'];
   onclick(): void {
     this.router.navigate(this.navigationDetails);
+    this.setdata();
+    console.warn(this.data2);
   }
-
-  data: any = [];
 
   createStudent() {
-    this.data = this.profileForm.value;
-    AppComponent.studentservice.createstudents(this.data);
-
-    // console.warn(this.data);
+    this.studentservice.createstudents(this.profileForm.value);
+    this.getdata();
   }
 
+  getdata() {
+    this.data = this.studentservice.getdata();
+  }
+  setdata() {
+    this.data2.concat(this.data);
+  }
   ngOnInit(): void {}
 }
